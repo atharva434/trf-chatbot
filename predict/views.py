@@ -3,16 +3,10 @@ from django.shortcuts import render
 import pickle
 import numpy as np
 from keras.models import load_model
-from keras.applications.imagenet_utils import decode_predictions
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import json
 # Create your views here.
-label_encoder = LabelEncoder()
 
 from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
