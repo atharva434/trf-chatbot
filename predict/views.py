@@ -17,15 +17,15 @@ from django.views.decorators.csrf import csrf_exempt
 def chatbot(request):
     if request.method == 'GET':            
         inp= request.GET.get('inp')
-    with open("predict\static\\New_intents.json") as file:
+    with open("predict/static/New_intents.json") as file:
         data = json.load(file)
-    chat_model = load_model('predict\static\models\estv2.h5')
+    chat_model = load_model('predict/static/models/estv2.h5')
     # load tokenizer object
-    with open('predict\static\pickles\okenizer.pickle', 'rb') as handle:
+    with open('predict/static/pickles/okenizer.pickle', 'rb') as handle:
         tokenizer = pickle.load(handle)
 
     # load label encoder object
-    with open('predict\static\pickles\lbl_encoder.pickle', 'rb') as enc:
+    with open('predict/static/pickles/lbl_encoder.pickle', 'rb') as enc:
         onehot_encoded = pickle.load(enc)
     max_len = 10
     result = chat_model.predict(pad_sequences(tokenizer.texts_to_sequences([inp]),
