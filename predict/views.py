@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 def chatbot(request):
     if request.method == 'GET':            
         inp= request.GET.get('inp')
-    with open("predict\static\New_intents.json") as file:
+    with open("predict\static\\New_intents.json") as file:
         data = json.load(file)
     chat_model = load_model('predict\static\models\estv2.h5')
     # load tokenizer object
