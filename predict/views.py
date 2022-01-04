@@ -9,23 +9,23 @@ import json
 # Create your views here.
 import requests
 from django.views.decorators.csrf import csrf_exempt
-url = requests.get("https://drive.google.com/file/d/1xmdgLBiWhu2pg-h1lgi-onp-e2Q4HAhy/view?usp=sharing")
-text = url.text
+
+
 
 
 @csrf_exempt
 def chatbot(request):
     if request.method == 'GET':            
         inp= request.GET.get('inp')
-
-    data = json.loads(text)
-    chat_model = load_model('models\estv2.h5')
+    with open("predict\static\New_intents.json") as file:
+        data = json.load(file)
+    chat_model = load_model('predict\static\models\estv2.h5')
     # load tokenizer object
-    with open('models\pickles\okenizer.pickle', 'rb') as handle:
+    with open('predict\static\pickles\okenizer.pickle', 'rb') as handle:
         tokenizer = pickle.load(handle)
 
     # load label encoder object
-    with open('models\pickles\lbl_encoder.pickle', 'rb') as enc:
+    with open('predict\static\pickles\lbl_encoder.pickle', 'rb') as enc:
         onehot_encoded = pickle.load(enc)
     max_len = 10
     result = chat_model.predict(pad_sequences(tokenizer.texts_to_sequences([inp]),
