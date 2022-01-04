@@ -7,14 +7,18 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import json
 # Create your views here.
-
+import requests
 from django.views.decorators.csrf import csrf_exempt
+url = requests.get("https://drive.google.com/file/d/1xmdgLBiWhu2pg-h1lgi-onp-e2Q4HAhy/view?usp=sharing")
+text = url.text
+
+
 @csrf_exempt
 def chatbot(request):
     if request.method == 'GET':            
         inp= request.GET.get('inp')
-    with open("predict\\New_intents.json") as file:
-        data = json.load(file)
+
+    data = json.loads(text)
     chat_model = load_model('models\estv2.h5')
     # load tokenizer object
     with open('models\pickles\okenizer.pickle', 'rb') as handle:
